@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Special Day</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --deep-rose: #c9184a;
+            --soft-gold: #ffd700;
+            --glass: rgba(255, 255, 255, 0.08);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #05070a;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* Sophisticated Gradient Background */
+        .background-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #1a1f2c 0%, #05080a 100%);
+        }
+
+        /* Refined Starfield */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: transparent url(https://i.imgur.com/Y4Yg7A2.png) repeat;
+            z-index: -1;
+            opacity: 0.3;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Glassmorphism Container */
+        .container {
+            position: relative;
+            text-align: center;
+            padding: 40px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            max-width: 80%;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        /* Soft pulsing photo effect */
+        .main-photo {
+            max-width: 100%;
+            max-height: 55vh;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 77, 109, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: block;
+            margin: 0 auto;
+            animation: photo-pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes photo-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 77, 109, 0.2); }
+            50% { transform: scale(1.02); box-shadow: 0 0 60px rgba(255, 77, 109, 0.4); }
+        }
+
+        .monthsary-text {
+            margin-top: 35px;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--primary-pink), var(--soft-gold), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        /* Professional Heart Particles */
+        .heart-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            user-select: none;
+            will-change: transform;
+            filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.5));
+        }
+
+        @keyframes floatAndSway {
+            0% {
+                transform: translateY(10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-110vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .monthsary-text { font-size: 1.1rem; letter-spacing: 2px; }
+            .container { padding: 25px; width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-wrapper"></div>
+    <div class="stars"></div>
+
+    <div class="container">
+        <img src="IMG_20260228_012105_189.JPG" alt="Our Memory" class="main-photo">
+        
+        <div class="monthsary-text">
+            ❤ Happy Monthsary Bay Ko ❤
+        </div>
+    </div>
+
+    <script>
+        const colors = ['#ff4d6d', '#ff758f', '#c9184a', '#ffb3c1', '#ffd700'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            
+            // Randomize properties
+            const size = Math.random() * 20 + 10; // 10px to 30px
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const startX = Math.random() * 100; // 0 to 100vw
+            const duration = Math.random() * 5 + 5; // 5 to 10 seconds
+            const delay = Math.random() * 5;
+            const blurValue = Math.random() * 3; // Professional depth of field
+
+            heart.style.left = `${startX}vw`;
+            heart.style.bottom = `-5vh`;
+            heart.style.fontSize = `${size}px`;
+            heart.style.color = color;
+            heart.style.filter = `blur(${blurValue}px)`;
+            heart.style.animation = `floatAndSway ${duration}s ease-in-out ${delay}s forwards`;
+            
+            // Add slight variation in swaying path via random horizontal movement
+            heart.style.setProperty('--sway', `${Math.random() * 200 - 100}px`);
+
+            heart.innerHTML = '❤';
+            
+            document.body.appendChild(heart);
+
+            // Clean up
+            setTimeout(() => {
+                heart.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        // Initialize a few hearts immediately
+        for(let i = 0; i < 15; i++) {
+            createHeart();
+        }
+
+        // Generate hearts continuously
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
